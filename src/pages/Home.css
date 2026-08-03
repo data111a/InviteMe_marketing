@@ -1,0 +1,532 @@
+/* ============================================================== hero ===== */
+
+.hero {
+  position: relative;
+  overflow: hidden;
+  padding-block: clamp(3rem, 1.5rem + 6vw, 6rem) clamp(3.5rem, 2rem + 6vw, 6.5rem);
+}
+
+.hero__inner {
+  display: grid;
+  grid-template-columns: 1fr;
+  align-items: center;
+  gap: clamp(2rem, 1rem + 4vw, 5rem);
+  position: relative;
+  z-index: 1;
+}
+
+/* Two columns only while the invitation mock-up is actually in the markup —
+   comment the card out in Home.jsx and the hero falls back to one column
+   instead of leaving half the row empty. */
+.hero__inner:has(.invite-card) {
+  grid-template-columns: 1.05fr 0.95fr;
+}
+
+.hero__inner:not(:has(.invite-card)) .hero__visual {
+  display: none;
+}
+
+/* Without the second column the headline would run the full page width, so
+   keep the measure readable. */
+.hero__inner:not(:has(.invite-card)) .hero__copy {
+  max-width: 42rem;
+}
+
+.hero__title {
+  margin-top: var(--sp-4);
+}
+
+.hero__subtitle {
+  margin-top: var(--sp-5);
+  max-width: 46ch;
+  font-size: var(--fs-md);
+  color: var(--c-ink-2);
+}
+
+.hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-3);
+  margin-top: var(--sp-6);
+}
+
+.hero__note {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: var(--sp-5);
+  font-size: var(--fs-sm);
+  color: var(--c-ink-3);
+}
+
+.hero__note-icon {
+  color: var(--c-olive);
+  flex-shrink: 0;
+}
+
+/* ---- Hero doodles --------------------------------------------------------- */
+
+.hero__sprig {
+  bottom: -14px;
+  left: -26px;
+  transform: rotate(-16deg);
+  opacity: 0.75;
+}
+
+.hero__dots {
+  top: 12%;
+  left: 46%;
+  color: var(--c-line);
+  opacity: 0.85;
+}
+
+.hero__flourish {
+  top: 6%;
+  right: -18px;
+  opacity: 0.5;
+  transform: scaleX(-1);
+}
+
+.hero__arrow {
+  top: -34px;
+  left: -62px;
+  color: var(--c-accent-soft);
+  transform: rotate(-8deg);
+}
+
+.hero__balloons {
+  right: -46px;
+  bottom: 6%;
+}
+
+/* ---- Invitation card mock-up ---------------------------------------------- */
+
+.hero__visual {
+  position: relative;
+  display: flex;
+  justify-content: center;
+}
+
+.invite-card {
+  position: relative;
+  width: min(100%, 350px);
+  padding: 12px;
+  background: var(--c-card);
+  border: 1px solid var(--c-line);
+  border-radius: var(--r-lg);
+  box-shadow: var(--shadow-lg);
+  transform: rotate(-1.6deg);
+  transition: transform var(--t-slow);
+}
+
+.invite-card:hover {
+  transform: rotate(0deg) translateY(-4px);
+}
+
+/* Two stacked "papers" peeking out behind the card. */
+.invite-card::before,
+.invite-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: var(--r-lg);
+  background: var(--c-card);
+  border: 1px solid var(--c-line);
+  z-index: -1;
+}
+
+.invite-card::before {
+  transform: rotate(3.5deg) translate(6px, 5px);
+  opacity: 0.85;
+}
+
+.invite-card::after {
+  transform: rotate(6.5deg) translate(12px, 10px);
+  opacity: 0.55;
+}
+
+.invite-card__edge {
+  padding: clamp(1.5rem, 1rem + 2vw, 2.25rem) clamp(1.1rem, 0.8rem + 1.5vw, 1.75rem);
+  border: 1px dashed var(--c-line);
+  border-radius: calc(var(--r-lg) - 6px);
+  text-align: center;
+  background-image: radial-gradient(
+    circle at 50% 0%,
+    rgba(35, 165, 140, 0.07),
+    transparent 70%
+  );
+}
+
+.invite-card__kicker {
+  font-size: 0.66rem;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--c-ink-3);
+}
+
+.invite-card__star {
+  margin: var(--sp-3) auto;
+  color: var(--c-gold);
+}
+
+.invite-card__names {
+  font-family: var(--font-display);
+  font-size: clamp(1.9rem, 1.4rem + 1.8vw, 2.5rem);
+  font-weight: 600;
+  line-height: 1.1;
+  color: var(--c-ink);
+}
+
+.invite-card__rule {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  margin: var(--sp-4) 0;
+  color: var(--c-gold);
+}
+
+.invite-card__rule span {
+  height: 1px;
+  width: 2.6rem;
+  background: var(--c-line);
+}
+
+.invite-card__date {
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  color: var(--c-ink-2);
+}
+
+.invite-card__place {
+  margin-top: 2px;
+  font-size: var(--fs-sm);
+  color: var(--c-ink-3);
+}
+
+.invite-card__ask {
+  margin-top: var(--sp-5);
+  padding-top: var(--sp-4);
+  border-top: 1px dashed var(--c-line);
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  font-style: italic;
+  color: var(--c-ink-2);
+}
+
+.invite-card__buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-top: var(--sp-4);
+}
+
+.invite-card__btn {
+  padding: 0.6rem 1rem;
+  border: 1px solid var(--c-line);
+  border-radius: var(--r-pill);
+  font-size: var(--fs-xs);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--c-ink-3);
+  background: var(--c-paper);
+}
+
+.invite-card__btn.is-yes {
+  background: var(--c-accent);
+  border-color: var(--c-accent);
+  color: #ffffff;
+}
+
+@media (max-width: 940px) {
+  /* Selector repeated with :has() so it matches the specificity of the
+     two-column rule above and actually collapses to a single column here. */
+  .hero__inner,
+  .hero__inner:has(.invite-card) {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+
+  .hero__subtitle {
+    margin-inline: auto;
+  }
+
+  .hero__actions {
+    justify-content: center;
+  }
+
+  .hero .eyebrow--start::before {
+    display: inline-block;
+  }
+
+  /* The card only works as a side-by-side element. Below the two-column
+     breakpoint it would stack on top of the text, so hide it entirely —
+     the hero stays text-first on tablet and phone. */
+  .hero__visual {
+    display: none;
+  }
+}
+
+/* ============================================================= stats ===== */
+
+.stats {
+  border-block: 1px solid var(--c-line-soft);
+  background: var(--c-paper-2);
+}
+
+.stats__inner {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: clamp(1.5rem, 1rem + 4vw, 5rem);
+  padding-block: clamp(1.75rem, 1.2rem + 2vw, 2.75rem);
+  text-align: center;
+}
+
+.stats__item {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 7rem;
+}
+
+.stats__value {
+  font-family: var(--font-display);
+  font-size: clamp(1.9rem, 1.4rem + 1.6vw, 2.6rem);
+  font-weight: 600;
+  color: var(--c-accent);
+  line-height: 1;
+}
+
+.stats__label {
+  font-size: var(--fs-xs);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--c-ink-3);
+}
+
+/* =========================================================== gallery ===== */
+
+.gallery-section {
+  position: relative;
+  overflow: hidden;
+  /* Extra room below because every other card is nudged down 26px. */
+  padding-bottom: calc(var(--section-y) + 26px);
+}
+
+/* =============================================================== how ===== */
+
+.how {
+  overflow: hidden;
+}
+
+.how__confetti {
+  top: 8%;
+  left: 4%;
+  opacity: 0.7;
+  transform: rotate(-10deg);
+}
+
+.how__list {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: clamp(1.75rem, 1rem + 3vw, 3rem);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  counter-reset: step;
+}
+
+.how__step {
+  position: relative;
+  text-align: center;
+  padding-inline: var(--sp-2);
+}
+
+/* Dashed connector between the steps on wide screens. */
+@media (min-width: 800px) {
+  .how__step:not(:last-child)::after {
+    content: "";
+    position: absolute;
+    top: 34px;
+    inset-inline-start: calc(50% + 52px);
+    width: calc(100% - 104px);
+    height: 14px;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 14' preserveAspectRatio='none'%3E%3Cpath d='M2 9C22 2 42 12 62 6s38 2 56-3' fill='none' stroke='%23d2e2ec' stroke-width='2' stroke-linecap='round' stroke-dasharray='1 8'/%3E%3C/svg%3E");
+  }
+}
+
+.how__badge {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 72px;
+  height: 72px;
+  margin: 0 auto var(--sp-4);
+}
+
+.how__badge-ring {
+  position: absolute;
+  inset: 0;
+  color: var(--c-accent-soft);
+}
+
+.how__number {
+  position: relative;
+  font-family: var(--font-display);
+  font-size: 1.9rem;
+  font-weight: 600;
+  color: var(--c-accent);
+}
+
+/* Fixed height keeps the three step titles on the same baseline, whatever the
+   aspect ratio of the doodle in that slot. */
+.how__doodle {
+  height: 44px;
+  width: auto;
+  margin: 0 auto var(--sp-4);
+  opacity: 0.85;
+}
+
+.how__title {
+  margin-bottom: var(--sp-3);
+}
+
+.how__body {
+  max-width: 34ch;
+  margin-inline: auto;
+  color: var(--c-ink-2);
+}
+
+/* ========================================================== features ===== */
+
+.features {
+  position: relative;
+  overflow: hidden;
+}
+
+.features__sprig {
+  right: -22px;
+  bottom: 8%;
+  transform: rotate(18deg) scaleX(-1);
+  opacity: 0.6;
+}
+
+.features__grid {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(272px, 1fr));
+  gap: clamp(1rem, 0.6rem + 1.5vw, 1.75rem);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.feature {
+  padding: clamp(1.4rem, 1rem + 1vw, 2rem);
+  transition: transform var(--t-base), box-shadow var(--t-base);
+}
+
+.feature:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-md);
+}
+
+.feature__tick {
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  margin-bottom: var(--sp-4);
+  border-radius: 50%;
+  color: var(--c-olive);
+  background: rgba(35, 165, 140, 0.1);
+}
+
+.feature__title {
+  font-size: 1.28rem;
+  margin-bottom: var(--sp-2);
+}
+
+.feature__body {
+  font-size: var(--fs-sm);
+  color: var(--c-ink-2);
+  line-height: 1.7;
+}
+
+/* ============================================================= words ===== */
+
+.words__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: clamp(1.25rem, 0.8rem + 1.5vw, 2rem);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.quote {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: clamp(1.6rem, 1.2rem + 1vw, 2.25rem);
+  background: var(--c-card);
+  border: 1px solid var(--c-line);
+  border-radius: var(--r-lg);
+  box-shadow: var(--shadow-sm);
+}
+
+.quote:nth-child(2) {
+  transform: rotate(-0.7deg);
+}
+
+.quote:nth-child(3) {
+  transform: rotate(0.6deg);
+}
+
+.quote__mark {
+  font-family: var(--font-display);
+  font-size: 4rem;
+  line-height: 0.6;
+  color: var(--c-accent-soft);
+  opacity: 0.5;
+  margin-bottom: var(--sp-2);
+}
+
+.quote__text {
+  flex: 1;
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  font-style: italic;
+  line-height: 1.5;
+  color: var(--c-ink);
+}
+
+.quote__by {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  margin-top: var(--sp-5);
+  padding-top: var(--sp-4);
+  border-top: 1px dashed var(--c-line);
+}
+
+.quote__author {
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  color: var(--c-ink);
+}
+
+.quote__event {
+  font-size: var(--fs-xs);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--c-ink-3);
+}

@@ -1,0 +1,97 @@
+.cta-band {
+  position: relative;
+  overflow: hidden;
+  margin-block: 0;
+  padding-block: clamp(3.5rem, 2rem + 6vw, 6rem);
+  background-color: #10344b;
+  background-image: radial-gradient(
+      ellipse at 20% 0%,
+      rgba(26, 107, 171, 0.35),
+      transparent 55%
+    ),
+    radial-gradient(ellipse at 85% 100%, rgba(35, 165, 140, 0.22), transparent 55%);
+  color: #dbe9f0;
+  text-align: center;
+}
+
+/* Torn-paper edge along the top. */
+.cta-band::before {
+  content: "";
+  position: absolute;
+  top: -1px;
+  inset-inline: 0;
+  height: 14px;
+  background: var(--c-paper);
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 14' preserveAspectRatio='none'%3E%3Cpath d='M0 0h1200v5c-70 6-150 2-220 6-80 4-150-4-230-1-90 3-170 7-260 3-80-4-150 3-230 0-90-4-180 1-260-4z' fill='%23000'/%3E%3C/svg%3E");
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 14' preserveAspectRatio='none'%3E%3Cpath d='M0 0h1200v5c-70 6-150 2-220 6-80 4-150-4-230-1-90 3-170 7-260 3-80-4-150 3-230 0-90-4-180 1-260-4z' fill='%23000'/%3E%3C/svg%3E");
+  -webkit-mask-size: 100% 100%;
+  mask-size: 100% 100%;
+}
+
+.cta-band__inner {
+  position: relative;
+  z-index: 1;
+  max-width: 46rem;
+}
+
+.cta-band__star {
+  display: block;
+  margin: 0 auto var(--sp-4);
+  color: var(--c-gold);
+}
+
+.cta-band__title {
+  color: #ffffff;
+  font-size: var(--fs-h2);
+}
+
+.cta-band__body {
+  margin: var(--sp-4) auto 0;
+  max-width: 44ch;
+  color: rgba(219, 233, 240, 0.82);
+  font-size: var(--fs-md);
+}
+
+.cta-band__actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--sp-3);
+  margin-top: var(--sp-6);
+}
+
+.cta-band__ghost {
+  color: #dbe9f0;
+  border: 1px solid rgba(219, 233, 240, 0.35);
+}
+
+.cta-band__ghost:hover {
+  color: #fff;
+  border-color: rgba(219, 233, 240, 0.7);
+  background: rgba(219, 233, 240, 0.08);
+}
+
+/* ---- Decorations --------------------------------------------------------- */
+
+.cta-band__sprig-left,
+.cta-band__sprig-right {
+  color: rgba(90, 185, 170, 0.4);
+  bottom: -6px;
+}
+
+.cta-band__sprig-left {
+  left: clamp(1rem, 5vw, 5rem);
+  transform: rotate(12deg);
+}
+
+.cta-band__sprig-right {
+  right: clamp(1rem, 5vw, 5rem);
+  transform: rotate(-12deg) scaleX(-1);
+}
+
+.cta-band__confetti {
+  top: 14%;
+  right: 12%;
+  color: rgba(95, 176, 196, 0.42);
+  transform: rotate(8deg);
+}

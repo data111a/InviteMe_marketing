@@ -1,0 +1,5 @@
+# SPA fallback for Netlify and Cloudflare Pages.
+# Every path that isn't a real file is served index.html so the client-side
+# router (react-router) can handle it — otherwise /about, /services, /contact
+# would 404 on a direct visit or refresh.
+/*    /index.html   200

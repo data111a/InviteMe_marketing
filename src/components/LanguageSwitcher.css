@@ -1,0 +1,43 @@
+.lang {
+  /* font-size: 12px; */
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  padding: 3px;
+  border: 1px solid var(--c-line);
+  border-radius: var(--r-pill);
+  background: rgba(255, 255, 255, 0.7);
+}
+
+.lang__btn {
+  padding: 0.24rem 0.6rem;
+  border-radius: var(--r-pill);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--c-ink-3);
+  transition:
+    background-color var(--t-fast),
+    color var(--t-fast);
+}
+
+.lang__btn:hover {
+  color: var(--c-ink);
+}
+
+.lang__btn.is-active {
+  background: var(--c-accent);
+  color: #ffffff;
+}
+
+/* Larger tap targets inside the mobile drawer. */
+.lang--drawer .lang__btn {
+  padding: 0.5rem 1.4rem;
+  /* font-size: 2px; */
+}
+
+/* @media (max-width: 360px) {
+  .lang {
+    display: none;
+  }
+} */

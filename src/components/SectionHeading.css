@@ -1,0 +1,35 @@
+.section-heading {
+  position: relative;
+  z-index: 1;
+  margin-bottom: clamp(2.25rem, 1.5rem + 2.5vw, 3.75rem);
+}
+
+.section-heading--center {
+  text-align: center;
+  max-width: 46rem;
+  margin-inline: auto;
+}
+
+.section-heading--start {
+  text-align: start;
+  max-width: 44rem;
+}
+
+.section-heading .eyebrow {
+  margin-bottom: var(--sp-4);
+}
+
+.section-heading__title {
+  margin: 0;
+}
+
+.section-heading__subtitle {
+  margin-top: var(--sp-4);
+  font-size: var(--fs-md);
+  color: var(--c-ink-2);
+  max-width: 46ch;
+}
+
+.section-heading--center .section-heading__subtitle {
+  margin-inline: auto;
+}
