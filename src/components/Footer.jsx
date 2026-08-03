@@ -49,7 +49,9 @@ export default function Footer() {
             <li>
               <a href={site.phoneHref}>{site.phone}</a>
             </li>
-            <li className="site-footer__muted">{t("contact.details.address")}</li>
+            <li className="site-footer__muted">
+              {t("contact.details.address")}
+            </li>
           </ul>
         </div>
 
@@ -71,10 +73,10 @@ export default function Footer() {
         <p>
           © {year} {t("common.brand")}. {t("footer.rights")}
         </p>
-        <p className="site-footer__made">
+        {/* <p className="site-footer__made">
           {t("footer.madeWith")}
           <Heart width={14} className="site-footer__heart" />
-        </p>
+        </p> */}
       </div>
     </footer>
   );
