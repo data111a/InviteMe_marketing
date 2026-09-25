@@ -1,7 +1,7 @@
 # InviteMe — marketing site
 
 The public site for **inviteme.ge**. It presents the business, explains the
-service and shows example invitations as video previews. This is *not* the
+service and shows real example invitations as live previews. This is *not* the
 invitation product itself — no RSVP data or client dashboard lives here.
 
 Built with React + Vite, plain CSS, and a small hand-rolled i18n layer.
@@ -47,8 +47,8 @@ infoSite/
 ├── index.html                  base <meta>, Google Fonts, JSON-LD
 ├── public/
 │   ├── favicon.svg
-│   └── videos/                 ← your MP4s (see videos/README.md)
-│       └── posters/            ← poster stills
+│   ├── _headers, _redirects    ← host config (security headers, SPA fallback)
+│   └── .htaccess               ← same, for Apache / cPanel
 └── src/
     ├── main.jsx                entry — global CSS is imported here, first
     ├── App.jsx                 routes + page shell
@@ -59,13 +59,13 @@ infoSite/
     │   ├── ka.js               every Georgian string
     │   └── index.js            language list + default
     ├── data/
-    │   ├── videos.js           gallery entries
+    │   ├── examples.js         live invitation examples (links)
     │   └── site.js             email, phone, social links
     ├── hooks/
     │   └── usePageMeta.js      per-page <title> + meta description
     ├── services/
     │   └── contactForm.js      ← wire your backend up here
-    ├── components/             Header, Footer, Logo, Modal, VideoGallery,
+    ├── components/             Header, Footer, Logo, Modal, SitePreviews,
     │                           LanguageSwitcher, PageHero, CTASection,
     │                           SectionHeading, ScrollToTop, Doodles
     ├── pages/                  Home, About, Services, Contact, NotFound
@@ -126,31 +126,31 @@ automatically.
 
 ---
 
-## Swapping the videos
+## Adding example invitations
 
-Full instructions, recommended encoding settings and ffmpeg commands are in
-[`public/videos/README.md`](public/videos/README.md).
-
-Short version: put the MP4 in `public/videos/`, a poster JPG in
-`public/videos/posters/`, then edit `src/data/videos.js`:
+The "Recent work" section shows **real, published invitations live** — each one
+is rendered inside a phone frame and the whole card links out to the site (opens
+in a new tab). Edit `src/data/examples.js`:
 
 ```js
 {
-  id: "ana-levan",                                  // any unique string
-  src: "/videos/wedding-ana-levan.mp4",
-  poster: "/videos/posters/wedding-ana-levan.jpg",
-  category: "wedding",                              // see below
-  title: { en: "Ana & Levan", ka: "ანა და ლევანი" },
+  id: "nikoloz-elene",                   // any unique string
+  url: "https://test1.inviteme.ge",
+  category: "wedding",                   // see below
+  title: { en: "Nikoloz & Elene", ka: "ნიკოლოზი და ელენე" },
 }
 ```
 
 `category` must be one of the keys under `home.gallery.categories` in the locale
-files: `wedding`, `birthday`, `corporate`, `christening`, `anniversary`. Add
-more by adding them to both locale files first.
+files: `wedding`, `birthday`, `corporate`, `christening`, `anniversary`.
 
-Cards play muted on hover and open in a lightbox with sound on click. A card
-whose file is missing shows a "preview coming soon" placeholder instead of
-breaking, so you can add clips one at a time.
+Any site on `*.inviteme.ge` just works. A site on **another domain** must also be
+added to the CSP `frame-src` (in `public/_headers`, `vercel.json` and
+`public/.htaccess`), and it must not forbid being framed (`X-Frame-Options`).
+
+Previews load lazily (only when scrolled near), run silently (no audio/autoplay)
+and can't be clicked into — they're a picture of the site; the card is the link.
+On phones the cards become a swipeable row.
 
 ---
 
@@ -249,4 +249,4 @@ you, pre-rendering is the next step.
 **Accessibility** — semantic landmarks, a skip link, visible focus rings, a
 focus-trapped lightbox that restores focus on close, labelled form fields with
 `aria-invalid`/`aria-describedby` errors, and `prefers-reduced-motion` support
-(which also stops hover video autoplay).
+(which also shortens the menu and card animations).

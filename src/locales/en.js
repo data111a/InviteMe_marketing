@@ -63,12 +63,11 @@ const en = {
       titleAccent: "made",
       titleEnd: "",
       subtitle:
-        "Move your cursor over a card for a silent preview, or open one to watch it full size.",
-      hint: "Hover to preview · click to open",
-      hintTouch: "Tap a card to watch",
-      play: "Play preview",
-      open: "Open preview",
-      soon: "Preview coming soon",
+        "These are real, live invitations — open one and see exactly what your guests would see on their phone.",
+      hint: "Click an invitation to open it live",
+      hintTouch: "Swipe to browse · tap to open",
+      open: "Open invitation",
+      loading: "Loading preview…",
       categories: {
         wedding: "Wedding",
         birthday: "Birthday",
@@ -76,8 +75,6 @@ const en = {
         christening: "Christening",
         anniversary: "Anniversary",
       },
-      unsupported:
-        "Your browser cannot play this video. Try downloading it instead.",
     },
     how: {
       eyebrow: "How it works",

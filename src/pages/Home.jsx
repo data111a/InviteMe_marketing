@@ -2,10 +2,10 @@ import { Link } from "react-router-dom";
 
 import { useLanguage } from "../context/LanguageContext.jsx";
 import usePageMeta from "../hooks/usePageMeta.js";
-import videos from "../data/videos.js";
+import examples from "../data/examples.js";
 
 import SectionHeading from "../components/SectionHeading.jsx";
-import VideoGallery from "../components/VideoGallery.jsx";
+import SitePreviews from "../components/SitePreviews.jsx";
 import CTASection from "../components/CTASection.jsx";
 import {
   Sprig,
@@ -144,7 +144,7 @@ export default function Home() {
             titleEnd={t("home.gallery.titleEnd")}
             subtitle={t("home.gallery.subtitle")}
           />
-          <VideoGallery items={videos} />
+          <SitePreviews items={examples} />
         </div>
       </section>
 

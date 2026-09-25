@@ -27,10 +27,11 @@ it only if you deploy somewhere that can't set headers, e.g. GitHub Pages.)
 Headers set:
 
 - **Content-Security-Policy** — the main defence against XSS/injection. Only
-  first-party code runs; the only third party allowed is Google Fonts.
+  first-party code runs; the only third parties allowed are Google Fonts and
+  frames from `*.inviteme.ge` (the live invitation previews).
   ```
   default-src 'self'; base-uri 'self'; object-src 'none';
-  frame-ancestors 'none'; script-src 'self';
+  frame-src https://*.inviteme.ge; frame-ancestors 'none'; script-src 'self';
   style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
   font-src 'self' https://fonts.gstatic.com; img-src 'self' data:;
   media-src 'self'; connect-src 'self'; form-action 'self';
@@ -41,6 +42,10 @@ Headers set:
   - `style-src` allows `'unsafe-inline'` because React writes inline `style`
     attributes. Style injection is far lower risk than script injection; this is
     the standard trade-off. Scripts are **not** given `'unsafe-inline'`.
+  - `frame-src https://*.inviteme.ge` — only our own subdomains may be
+    embedded. The preview iframes are also sandboxed (`allow-scripts
+    allow-same-origin` only — no forms, popups or top-level navigation) and
+    denied autoplay/mic/camera/geolocation.
   - `img-src 'self' data:` covers the inline-SVG doodle textures (data URIs).
   - `frame-ancestors 'none'` + `X-Frame-Options: DENY` — no clickjacking.
 - **Strict-Transport-Security** — `max-age=2y; includeSubDomains; preload`.
@@ -49,12 +54,11 @@ Headers set:
 - **X-Content-Type-Options: nosniff** — no MIME sniffing.
 - **Referrer-Policy: strict-origin-when-cross-origin**.
 - **Permissions-Policy** — camera, microphone, geolocation, USB, payment, etc.
-  are all disabled; only `autoplay`/`fullscreen` are allowed for self (the video
-  gallery needs them).
+  are all disabled; only `autoplay`/`fullscreen` are allowed for self.
 - **Cross-Origin-Opener-Policy: same-origin**.
 
 The CSP was validated against a real production build (`npm run build` +
-`npm run preview`) with **zero violations** — fonts, videos, doodles and layout
+`npm run preview`) with **zero violations** — fonts, doodles and layout
 all load cleanly.
 
 > **When you wire up the contact form** (see below), add your form provider's

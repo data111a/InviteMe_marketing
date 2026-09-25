@@ -1,0 +1,216 @@
+/* ---- Hint line above the row -------------------------------------------- */
+
+.spv__hint {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  margin: calc(-1 * var(--sp-5)) 0 var(--sp-6);
+  font-size: var(--fs-sm);
+  color: var(--c-ink-3);
+  letter-spacing: 0.02em;
+  text-align: center;
+}
+
+.spv__hint-star {
+  color: var(--c-gold);
+  flex-shrink: 0;
+}
+
+.spv__hint-touch {
+  display: none;
+}
+
+@media (hover: none) {
+  .spv__hint-hover {
+    display: none;
+  }
+  .spv__hint-touch {
+    display: inline;
+  }
+}
+
+/* ---- Grid ----------------------------------------------------------------- */
+
+.spv {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(1.5rem, 0.8rem + 2.5vw, 3rem);
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 0;
+  list-style: none;
+}
+
+/* Middle phone sits a touch lower — a hand-placed, less grid-like feel. */
+@media (min-width: 761px) {
+  .spv__item:nth-child(3n + 2) {
+    transform: translateY(28px);
+  }
+}
+
+/* Tablet: two across. */
+@media (max-width: 760px) {
+  .spv {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* Phone: a swipeable row that snaps one invitation at a time. */
+@media (max-width: 560px) {
+  .spv {
+    display: flex;
+    gap: 1rem;
+    margin-inline: calc(-1 * var(--gutter));
+    padding: 0.5rem var(--gutter) 1.25rem;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-padding-inline: var(--gutter);
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+
+  .spv::-webkit-scrollbar {
+    display: none;
+  }
+
+  .spv__item {
+    flex: 0 0 72%;
+    scroll-snap-align: start;
+  }
+}
+
+/* ---- Card ------------------------------------------------------------------ */
+
+.spv__card {
+  display: block;
+  color: inherit;
+  text-decoration: none;
+}
+
+.spv__phone {
+  position: relative;
+  display: block;
+  padding: 10px;
+  background: var(--c-card);
+  border: 1px solid var(--c-line);
+  border-radius: 34px;
+  box-shadow: var(--shadow-md);
+  transition: transform var(--t-base), box-shadow var(--t-base),
+    border-color var(--t-base);
+}
+
+.spv__card:hover .spv__phone,
+.spv__card:focus-visible .spv__phone {
+  transform: translateY(-6px) rotate(-0.5deg);
+  box-shadow: var(--shadow-lg);
+  border-color: var(--c-accent-soft);
+}
+
+.spv__notch {
+  position: absolute;
+  top: 17px;
+  left: 50%;
+  z-index: 2;
+  width: 26%;
+  height: 7px;
+  border-radius: var(--r-pill);
+  background: rgba(22, 48, 63, 0.14);
+  transform: translateX(-50%);
+}
+
+.spv__screen {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  aspect-ratio: 390 / 844;
+  border-radius: 25px;
+  background: var(--c-paper-2);
+}
+
+/* Rendered at real phone size, scaled to the card by --spv-scale (set in JS). */
+.spv__frame {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 390px;
+  height: 844px;
+  border: 0;
+  transform: scale(var(--spv-scale, 0.6));
+  transform-origin: 0 0;
+  pointer-events: none; /* the whole card is the link */
+  opacity: 0;
+  transition: opacity var(--t-slow);
+}
+
+.spv__frame.is-loaded {
+  opacity: 1;
+}
+
+.spv__loading {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--sp-3);
+  color: var(--c-ink-3);
+  font-size: var(--fs-xs);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  background-image: repeating-linear-gradient(
+    -45deg,
+    rgba(30, 80, 110, 0.05) 0 10px,
+    transparent 10px 20px
+  );
+}
+
+/* ---- Caption --------------------------------------------------------------- */
+
+.spv__meta {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  padding: var(--sp-4) var(--sp-2) 0;
+  text-align: center;
+}
+
+.spv__title {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--c-ink);
+  line-height: 1.25;
+}
+
+.spv__cat {
+  font-size: var(--fs-xs);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--c-ink-3);
+}
+
+.spv__link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  margin-top: var(--sp-2);
+  padding: 0.45rem 0.95rem;
+  border: 1px solid var(--c-line);
+  border-radius: var(--r-pill);
+  background: var(--c-card);
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  color: var(--c-accent);
+  transition: background-color var(--t-fast), color var(--t-fast),
+    border-color var(--t-fast);
+}
+
+.spv__card:hover .spv__link,
+.spv__card:focus-visible .spv__link {
+  background: var(--c-accent);
+  border-color: var(--c-accent);
+  color: #ffffff;
+}
